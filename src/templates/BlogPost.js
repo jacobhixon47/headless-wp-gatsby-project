@@ -10,7 +10,6 @@ const BlogPostTemplate = ({ data }) => (
       title={data.wordpressPost.title}
       description={data.wordpressPost.excerpt}
     />
-    <h2>Hello>
     <h1>{data.wordpressPost.title}</h1>
     <Img
       sizes={data.wordpressPost.acf.image.localFile.childImageSharp.sizes}
