@@ -1,13 +1,6 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 
 import Header from "./header"
 import "./layout.css"
@@ -19,13 +12,51 @@ const Layout = ({ children }) => {
         siteMetadata {
           title
         }
+        host
+        port
+      }
+      allWordpressPost {
+        edges {
+          node {
+            path
+            title
+          }
+        }
       }
     }
   `)
-
+  var pages = data.allWordpressPost.edges;
+  console.log(pages);
+  var navLinks = [];
+  pages.forEach(sitePage => {
+    console.log(sitePage.node.path);
+    navLinks.push(
+      <p>
+        <Link
+          to={`/post/${sitePage.node.path}`}
+          style={{
+            textDecoration: 'none',
+            color: 'black'
+          }}
+        >
+          {sitePage.node.title}
+        </Link>
+      </p>
+    );
+  })
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'center'
+        }}
+      >
+        {navLinks}
+      </div>
       <div
         style={{
           margin: `0 auto`,
