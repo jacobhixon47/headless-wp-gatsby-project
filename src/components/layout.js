@@ -26,10 +26,8 @@ const Layout = ({ children }) => {
     }
   `)
   var pages = data.allWordpressPost.edges;
-  console.log(pages);
   var navLinks = [];
   pages.forEach(sitePage => {
-    console.log(sitePage.node.path);
     navLinks.push(
       <p>
         <Link
